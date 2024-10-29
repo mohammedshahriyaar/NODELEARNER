@@ -13,6 +13,7 @@
   "description": "",
   "dependencies": {
     "blognode": "file:",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.21.1",

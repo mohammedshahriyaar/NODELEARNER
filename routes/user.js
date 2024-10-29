@@ -11,6 +11,11 @@ router.get('/signup',(req,res)=>{
     res.render('signup')
 })
 
+router.get('/logout',(req,res)=>{
+    res.clearCookie('token')
+    res.redirect('/')
+})
+
 router.post('/signup',handleUserSignup)
 router.post('/signin',handleUserSignin)
 module.exports = router

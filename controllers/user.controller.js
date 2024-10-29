@@ -1,7 +1,7 @@
 const e = require("express");
 const {User} = require("../models/user.model")
 async function handleUserSignup(req,res) {
-    console.log(req.body);
+    // console.log(req.body);
     const {fullName,email,password} = req.body;
 
     const user = await User.create({fullName,email,password});
@@ -18,12 +18,16 @@ async function handleUserSignup(req,res) {
 async function handleUserSignin(req,res) {
 
     const {email,password} = req.body;
-
-    
-    const user = User.matchPassword(email,password)
-    console.log('User',user)
-    
-    return res.redirect('/')
+    try {
+        const token = await User.matchPasswordAndGenerateToken(email,password)
+        console.log('Token is',token)
+        
+        return res.cookie('token',token).redirect('/')
+    } catch (error) {
+        return res.render('signin',{
+            error:"Invalid email or password"
+        })
+    }
     
 }
 module.exports = {handleUserSignup,handleUserSignin}
