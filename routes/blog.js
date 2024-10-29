@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const path = require('path')
 
-const {createNewBlog}=require('../controllers/blog.controller')
-
+const {createNewBlog, getBlogById}=require('../controllers/blog.controller')
+const {createComment} = require('../controllers/comment.controller')
 const multer = require('multer')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -25,5 +25,11 @@ router.get('/add-New', (req, res) => {
 })
 
 
+router.get('/:id', getBlogById)
+
+
 router.post('/',upload.single('coverImage'),createNewBlog)
+
+
+router.post('/comment/:blogId',createComment)
 module.exports = router
